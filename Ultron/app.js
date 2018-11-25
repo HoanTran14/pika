@@ -24,8 +24,29 @@ var botkey = "http://sandbox.api.simsimi.com/request.p?key=0aa6ba77-fe53-4fc9-84
 
 
 var express = require('express');
-var app = express();
 
+var app = express();
+var bodyParser = require('body-parser');
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.get('/on', function (req, res) {
     flag=true;
     res.send("Pikà pikà  ");
@@ -34,12 +55,9 @@ app.get('/off', function (req, res) {
     flag=false;
     res.send("Pikà pikà zzz zz z...");
 })
-var server = app.listen(8080, function () {
-
-
-    console.log("LIS");
-
-})
+app.listen(process.env.PORT || 5678, function(){
+    console.log("LISTEN server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
 return;
 
 request("http://hoantran.getsandbox.com/hello",
