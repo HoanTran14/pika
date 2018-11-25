@@ -18,10 +18,29 @@ var demo ={
     timestamp: '1543069881329',
     isGroup: false
 };
-var flag=false;
+var flag=true;
 
 var botkey = "http://sandbox.api.simsimi.com/request.p?key=0aa6ba77-fe53-4fc9-844d-e6c5020fc577&lc=en&ft=1.0&text=";
 
+
+var express = require('express');
+var app = express();
+
+app.get('/on', function (req, res) {
+    flag=true;
+    res.send("Pikà pikà  ");
+})
+app.get('/off', function (req, res) {
+    flag=false;
+    res.send("Pikà pikà zzz zz z...");
+})
+var server = app.listen(8080, function () {
+
+
+    console.log("LIS");
+
+})
+return;
 
 request("http://hoantran.getsandbox.com/hello",
     function(error, response, body)
@@ -182,22 +201,4 @@ request("http://hoantran.getsandbox.com/hello",
         }
 
     });
-
-var express = require('express');
-var app = express();
-
-app.get('/on', function (req, res) {
-    flag=true;
-    res.send("Pikà pikà  ");
-})
-app.get('/off', function (req, res) {
-    flag=false;
-    res.send("Pikà pikà zzz zz z...");
-})
-var server = app.listen(8081, function () {
-
-
-    console.log("LIS");
-
-})
 
