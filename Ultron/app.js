@@ -58,7 +58,7 @@ app.get('/off', function (req, res) {
 app.listen(process.env.PORT || 5678, function(){
     console.log("LISTEN server listening on port %d in %s mode", this.address().port, app.settings.env);
 });
-return;
+
 
 request("http://hoantran.getsandbox.com/hello",
     function(error, response, body)
